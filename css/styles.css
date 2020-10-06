@@ -9,20 +9,19 @@
 */
 
 
-
 /* ---- Base Rules ---- */
 body {
     background: rgb(136,203,171);
     background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%);
     margin: 0;
-    font-family: 'Merriweather', serif;
+    font-family: 'Montserrat';
     color: #fff;
 }
 
 
 /* Typeography General*/
 h1 {
-    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Montserrat';
     font-size: 3em;
     margin: 2em 1rem;
 }
@@ -31,12 +30,13 @@ h1 {
     h1 {
         font-size: 7em;
         margin: 2em 4rem 1em;
+        text-align: center;
     }
 }
 
 h2 {
     border-bottom: 1px solid #cc1;
-    font-family: 'Oxygen', Sans-Serif;
+    font-family: 'Montserrat';
     font-size: 3em;
     color: #fff;
 }
@@ -57,7 +57,10 @@ main {
     background: linear-gradient(326deg, rgb(90, 91, 91) 0%, rgba(50, 162, 182, 0.8) 44%), url("https://images.unsplash.com/photo-1495954484750-af469f2f9be5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80")
     center no-repeat;
     border: 1rem solid white;
+    display: flex;
+    flex-direction: column;
 }
+
 
 section {
     position: relative;
@@ -68,10 +71,12 @@ section {
 /* ---- Module Rules ---- */
 
 /* Navigation Styles */
+
 .navbar__menu ul {
+    display: flex;
     padding-left: 0;
     margin: 0;
-    text-align: right;
+    justify-content: space-between;
 }
 
 .navbar__menu li {
@@ -86,14 +91,13 @@ section {
     color: #000;
 }
 
-.navbar__menu .menu__link:hover {
-    background: #333;
-    color: #fff;
+.navbar__menu li .menu__link:hover {
+    background: rgba(20, 203, 235, 0.205);
     transition: ease 0.3s all;
 }
 
 .navbar__menu .menu__link.active {
-    background: rgba(51, 51, 51, 0.205);
+    background: rgba(20, 203, 235, 0.205);
 } 
 
 
@@ -109,7 +113,7 @@ section {
 
 /* Footer Styles */
 .page__footer {
-    background: #000;
+    background: rgb(33, 33, 33);
     padding: 3em;
     color: #fff;
 }
@@ -232,23 +236,3 @@ section.your-active-class .landing__container::after {
 	}
 }
 
-/*Button style*/
-
-#button {
-    display: none;
-    z-index: 99;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    padding-top: 15px;
-    border-radius: 4px;
-    position: fixed;
-    bottom: 30px;
-    right: 15px;
-    transition: all .3s ease-in-out;
-}
-
-#button:hover {
-    background: rgba(51, 51, 51, 0.205);
-}

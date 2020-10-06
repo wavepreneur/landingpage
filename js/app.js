@@ -21,8 +21,7 @@
 
 const topMenu = document.getElementById('navbar__list');
 const sections = document.querySelectorAll('section');
-const navItems = document.getElementsByClassName("menu__link");
-const topButton = document.getElementById("button");
+const activeClass = 'your-active-class';
 
 
 
@@ -33,7 +32,6 @@ const topButton = document.getElementById("button");
 */
 
 
-
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -42,79 +40,63 @@ const topButton = document.getElementById("button");
 
 // build the nav
 
-const navBuilder = () => {
-    //var where we are going to write the html
-    let navCode = '';
+function navBuilder() {
     sections.forEach(section => {
-        let sectionId = section.id; //store ids of sections
-        let sectionDataNav = section.dataset.nav; //store datanav
-        navCode += `<li><a class="menu__link ${sectionId}" href="#${sectionId}">${sectionDataNav}</a></li>`;
+        let sectionId = section.id;
+        let sectionDataNav = section.dataset.nav;
+        topMenu.insertAdjacentHTML('beforeend', `<li><a class="menu__link ${sectionId}" href="#${sectionId}">${sectionDataNav}</a></li>`)
     });
-    topMenu.innerHTML = navCode;
+
+    const navbarList = document.querySelectorAll('li');
+
+    navbarList.forEach(item => {
+    item.setAttribute('class', 'menu__link');
+});
+
 }
 
 navBuilder();
 
+
+
 // Add class 'active' to section when near top of viewport
 
-function sectionActive () {
-    for (const section of sections) {
-        const boxPlace = section.getBoundingClientRect();
+function setActive() {
+    window.addEventListener('scroll', function(){
+        for (let i = 1; i<= sections.length; i++) {
+            let section = document.getElementById(`section${i}`);
+            const itemId = section.getBoundingClientRect();
 
-        if (boxPlace.top <= 150 && boxPlace.bottom >= 150) {
-            const id = section.getAttribute("id");
-            document.querySelector(`.${id}`).classList.add("active");
-            section.classList.add("your-active-class");
-        } else {
-            const id = section.getAttribute("id");
-            document.querySelector(`.${id}`).classList.remove("active");
-            section.classList.remove("your-active-class");
-            
-            
-        }
-    }
-}
+            if (itemId.top <= 150 && itemId.bottom >= 150) {
+                const id = section.getAttribute('id');
+                document.querySelector(`.${id}`).classList.add('active');
+                section.classList.add(activeClass);
+            } else {
+                const id = section.getAttribute('id');
+                document.querySelector(`.${id}`).classList.remove('active');
+                section.classList.remove(activeClass);
+            }}
+         }); 
+};
+
 
 document.addEventListener('scroll', function() {
-    sectionActive();
+    setActive();
 });
+
+
 
 // Scroll to anchor ID using scrollTO event
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+document.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', function(e) {
         e.preventDefault();
 
         document.querySelector(this.getAttribute('href')).scrollIntoView({
             behavior: 'smooth'
         });
     });
-});
-
-
-
-/* Add a scroll to top button that's only visible when 
-the user scrolls bellow the fold of the page */
-
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        topButton.style.display = "inline-block";
-    } else {
-        topButton.style.display = "none";
-    }
-
-}
-
-//Smooth scroll to top
-
-topButton.addEventListener('click', function(e) {
-    e.preventDefault();
-
-    window.scrollTo({top: 0, behavior: 'smooth'});
-});
-
+}); 
 
 
 
